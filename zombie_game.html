@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Zombie</title>
+    <link rel="stylesheet" type="text/css" href="myStyle.css" />
+</head>
+
+<body>
+
+    <div id="score" class = "box">
+        SCORE : 0
+    </div>
+    
+    <div id="stayhere">
+        <img id="zombie1" class="zombie" src="Zombie.png" alt="zombie"/>
+        <img id="zombie2" class="zombie" src="Zombie.png" alt="zombie"/>
+    </div>
+    
+    <audio id="sound"></audio>
+    
+    <p>
+        <button id="endgame" class="box">END GAME</button>
+    </p>
+    
+    <script>
+        
+        let myzombie1 = document.getElementById("zombie1");
+        let myzombie2 = document.getElementById("zombie2");
+        let mysound = document.getElementById("sound");
+        let myscore = document.getElementById("score");
+        let finish = document.getElementById("endgame");
+        let murder1 = false;
+        let murder2 = false;
+        let score = 0;
+
+        function movezombie1() {
+            let myleft = (Math.random() * (window.innerWidth - 120)) + 'px';
+            let mytop = (Math.random() * (window.innerHeight - 120)) + 'px';
+            myzombie1.style.position = "absolute";
+            myzombie1.style.top = mytop;
+            myzombie1.style.left = myleft;
+            myzombie1.src = "Zombie.png";
+        }
+
+        function movezombie2() {
+            let myleft = (Math.random() * (window.innerWidth - 120)) + 'px';
+            let mytop = (Math.random() * (window.innerHeight - 120)) + 'px';
+            myzombie2.style.position = "absolute";
+            myzombie2.style.top = mytop;
+            myzombie2.style.left = myleft;
+            myzombie2.src = "Zombie.png";
+            
+        }
+
+        function killzombie1() {
+            if (murder1){
+                return
+            }
+            murder1 = true;
+            myzombie1.src = "explosion.gif";
+            scoreofgame();
+            scarysound();
+            setTimeout(function(){
+                murder1 = false},1500)
+        }
+        
+        
+
+        function killzombie2() {
+            if (murder2){
+                return
+            }
+            murder2 = true;
+            myzombie2.src = "explosion.gif";
+            scoreofgame();
+            scarysound();
+            setTimeout(function(){
+                murder2 = false},1200)
+        }
+
+        function scoreofgame() {
+            score += 1;
+            myscore.innerHTML = "SCORE :" + score;
+        }
+
+        function scarysound() {
+            let mysound = new Audio("audio.wav");
+            mysound.play();
+        }
+
+        
+
+        function end_game() {
+            myscore.innerHTML = "SCORE : 0";
+            movezombie1();
+            movezombie2();
+            score=0
+        }
+
+        setInterval(movezombie1, 2000);
+        setInterval(movezombie2, 2000);
+        myzombie1.onclick = killzombie1
+        myzombie2.onclick = killzombie2
+        finish.onclick = end_game;
+
+    </script>
+
+</body>
+
+</html>
