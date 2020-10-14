@@ -1,2 +1,2 @@
-# zombie
-This is my zombie game
+# Zombie game
+
